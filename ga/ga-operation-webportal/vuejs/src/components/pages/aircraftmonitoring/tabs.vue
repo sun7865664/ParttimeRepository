@@ -18,9 +18,10 @@ import flightrecord from './flightrecord.vue'
 
 export default {
     components: {
+        flightrecord,
         workreserve,
         faultreserve,
-        repairmodified
+        repairmodified,
     },
     data(){
         return{
