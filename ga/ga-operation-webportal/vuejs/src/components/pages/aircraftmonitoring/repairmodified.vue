@@ -4,16 +4,6 @@
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="编号">
                 <Input v-model="formItem.userName" placeholder="请输入编号" />
             </FormItem>
-            <FormItem class="ws-form-span8" style="margin-right: 0;" label="航空器型号" >
-                <Select v-model="formItem.baseId" number="true"  placeholder="请选择">
-                    <Option v-for="site in supervision" :key="site.baseId" :value="site.baseId">{{ site.baseName }}</Option>
-                </Select>
-            </FormItem>
-            <FormItem class="ws-form-span8" style="margin-right: 0;" label="航空器注册号" >
-                <Select v-model="formItem.baseId" number="true"  placeholder="请选择">
-                    <Option v-for="site in supervision" :key="site.baseId" :value="site.baseId">{{ site.baseName }}</Option>
-                </Select>
-            </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="类型" >
                 <Select v-model="formItem.baseId" number="true"  placeholder="请选择">
                     <Option v-for="site in supervision" :key="site.baseId" :value="site.baseId">{{ site.baseName }}</Option>
@@ -22,6 +12,13 @@
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="项目" >
                 <Select v-model="formItem.baseId" number="true"  placeholder="请选择">
                     <Option v-for="site in supervision" :key="site.baseId" :value="site.baseId">{{ site.baseName }}</Option>
+                </Select>
+            </FormItem>
+            <FormItem class="ws-form-span8" style="margin-right: 0;" label="处理状态" >
+                <Select number="true"  placeholder="请选择">
+                    <Option value="0">待完成</Option>
+                    <Option value="1">已完成</Option>
+                    <Option value="2">已退单</Option>
                 </Select>
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;">
@@ -53,9 +50,8 @@ export default {
                     id:"0701",
                     aircraftModel:"",
                     aircraftRegNo:"",
-                    wocNo:"",
-                    wocTitle:"",
-                    delayDate:"",
+                    type:"",
+                    project:"",
                     status:"",
                     action:"",
                 }
@@ -99,23 +95,18 @@ export default {
                     align: 'center'
                 },
                 {
-                    title: '工作单卡编号',
+                    title: '类型',
                     width: 160,
-                    key: 'wocNo',
+                    key: 'type',
                     align: 'center'
                 },{
-                    title: '工作单卡标题',
+                    title: '项目',
                     width: 240,
-                    key: 'wocTitle',
-                    align: 'center'
-                },{
-                    title: '推迟期限',
-                    width: 100,
-                    key: 'delayDate',
+                    key: 'project',
                     align: 'center'
                 },{
                     title: '处理状态',
-                    width: 100,
+                    width: 160,
                     key: 'status',
                     align: 'center'
                 },

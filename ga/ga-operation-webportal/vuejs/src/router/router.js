@@ -77,10 +77,11 @@ export const otherRouter = {
     redirect: '/home',
     component: () => import('@/components/common/Home.vue'),
     children: [
-        { path: '/aircraftmonitoring/repairmodifiedinfo', title: { i18n: '维修与改装详情' }, name: 'repairmodifiedinfo', component: () => import('@/components/pages/aircraftmonitoring/repairmodifiedinfo.vue') },
         { path: '/aircraftmonitoring/tabs', title: { i18n: '航空器检测信息' }, name: 'aircraftmonitoring', component: () => import('@/components/pages/aircraftmonitoring/tabs.vue') },
+        { path: '/aircraftmonitoring/flightrecordinfo', title: { i18n: '航空器飞行记录本详情' }, name: 'flightrecordinfo', component: () => import('@/components/pages/aircraftmonitoring/flightrecordinfo.vue') },
         { path: '/aircraftmonitoring/workreserveinfo', title: { i18n: '工作保留单详情' }, name: 'workreserveinfo', component: () => import('@/components/pages/aircraftmonitoring/workreserveinfo.vue') },
         { path: '/aircraftmonitoring/faultreserveinfo', title: { i18n: '故障保留单详情' }, name: 'faultreserveinfo', component: () => import('@/components/pages/aircraftmonitoring/faultreserveinfo.vue') },
+        { path: '/aircraftmonitoring/repairmodifiedinfo', title: { i18n: '维修与改装详情' }, name: 'repairmodifiedinfo', component: () => import('@/components/pages/aircraftmonitoring/repairmodifiedinfo.vue') },
         { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: () => import('@/components/pages/company/tabs.vue') },
         { path: '/addAircraft', title: '新增航空器', name: 'addAircraft', component: () => import('@/components/pages/flight/addAircraft.vue') },
         { path: '/viewAircraft', title: '查看航空器', name: 'viewAircraft', component: () => import('@/components/pages/flight/viewAircraft.vue') },

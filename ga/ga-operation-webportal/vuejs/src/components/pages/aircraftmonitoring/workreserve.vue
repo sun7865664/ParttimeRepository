@@ -4,28 +4,20 @@
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="编号">
                 <Input v-model="formItem.userName" placeholder="请输入编号" />
             </FormItem>
-            <FormItem class="ws-form-span8" style="margin-right: 0;" label="航空器型号" >
-                <Select v-model="formItem.baseId" number="true"  placeholder="请选择">
-                    <Option v-for="site in supervision" :key="site.baseId" :value="site.baseId">{{ site.baseName }}</Option>
-                </Select>
-            </FormItem>
-            <FormItem class="ws-form-span8" style="margin-right: 0;" label="航空器注册号" >
-                <Select v-model="formItem.baseId" number="true"  placeholder="请选择">
-                    <Option v-for="site in supervision" :key="site.baseId" :value="site.baseId">{{ site.baseName }}</Option>
-                </Select>
-            </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="工作单卡编号" >
-                <Input v-model="formItem.techpos" placeholder="请输入工作单卡编号"></Input>
+                <Input v-model="formItem.techpos" placeholder="请输入工作单卡编号"/>
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="推迟期限" >
-                <Input v-model="formItem.techpos" placeholder="请输入工作单卡编号"></Input>
+                <Input v-model="formItem.techpos" placeholder="请输入工作单卡编号"/>
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="处理状态" >
-                <Select v-model="formItem.baseId" number="true"  placeholder="请选择">
-                    <Option v-for="site in supervision" :key="site.baseId" :value="site.baseId">{{ site.baseName }}</Option>
+                <Select number="true"  placeholder="请选择">
+                    <Option value="0">待完成</Option>
+                    <Option value="1">已完成</Option>
+                    <Option value="2">已退单</Option>
                 </Select>
             </FormItem>
-            <FormItem style="width:100%; text-align:right;">
+            <FormItem class="ws-form-span8" style="margin-right: 0;text-align:right;">
                 <Button type="primary" @click="reset" style="margin-left:0;">重置</Button>
                 <Button type="primary" @click="init(1)" style="margin-left:0;">查询</Button>
             </FormItem>
@@ -129,11 +121,26 @@ export default {
             ],
         }
     },
+    mounted () {
+        this.getWorkList();
+    },
     methods: {
         toview(index) {
             this.$router.push({
                 path: '/aircraftmonitoring/workreserveinfo',
                 query: {Id: this.workreserves[index].id}
+            });
+        },
+        getWorkList: function() {
+            console.log("2222222222222222");
+            
+            let self = this;
+            self.$http.httpGet('/eim/api/workReserve/getWorkListByPage', {}).then((res) => {
+                console.log("111111111111", res);
+                
+
+            }).catch(function (error) {
+                console.log(error);
             });
         },
     }
