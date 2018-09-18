@@ -183,7 +183,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{workreserveinfo.completorTime}}</span>
+                            <span>{{workreserveinfo.completeTime}}</span>
                         </div>
                     </td>
                 </tr>
@@ -214,13 +214,29 @@ export default {
         approver: "",
         approveTime: "",
         completor: "",
-        completorTime: ""
+        completeTime: ""
       }
     };
+  },
+  created () {
+      this.id = this.$route.query.Id;
+      this.getWorkReserveById(this.id);
   },
   methods: {
     onclose: function() {
        this.$router.push({path:'/aircraftmonitoring/tabs',query: {value:'workreserve' }})
+    },
+    getWorkReserveById: function (id) {
+        var self = this;
+        self.$http.httpGet('/eim/api/mmis/getWorkReserveById', {
+            id: id
+        }).then((res) => {
+            console.log("getWorkListByPage res", res);
+            self.workreserveinfo = res.data;
+
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
   }
 };
