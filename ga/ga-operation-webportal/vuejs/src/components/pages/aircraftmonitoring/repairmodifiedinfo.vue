@@ -17,7 +17,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{repairmodifiedinfo.id}}</span>
+                            <span>{{repairmodifiedinfo.no}}</span>
                         </div>
                     </td>
                     <td>
@@ -158,25 +158,24 @@ export default {
     };
   },
   created: function() {
-      
-      this.repairmodifiedinfo = {
-        id: "",
-        companyName: "",
-        aircraftManufacturer,
-        aircraftModel: "",
-        aircraftRegNo: "",
-        possessor: "",
-        address: "",
-        type: "",
-        project: "",
-        releaser: "",
-        releaseTime: "",
-        mcSummary: "",
-      };
+      this.id = this.$route.query.Id;
+      this.getRepairModifiedById(this.id);
   },
   methods: {
     onclose: function() {
        this.$router.push({path:'/aircraftmonitoring/tabs',query: {value:'repairmodified' }})
+    },
+    getRepairModifiedById: function (id) {
+        var self = this;
+        self.$http.httpGet('/eim/api/mmis/getRepairModifiedById', {
+            id: id
+        }).then((res) => {
+            console.log("getWorkListByPage res", res);
+            self.repairmodifiedinfo = res.data;
+
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
   }
 };

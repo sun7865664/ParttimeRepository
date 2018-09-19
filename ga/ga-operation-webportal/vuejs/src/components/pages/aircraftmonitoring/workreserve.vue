@@ -69,7 +69,7 @@ export default {
                                    href:"#"
                                 },
                                 style: {
-                                    
+                                   "color": "#2d8cf0"
                                 },
                                 on: {
                                     click: () => {
@@ -107,22 +107,22 @@ export default {
                     width: 160,
                     key: 'delayDate',
                     align: 'center',
-                    render: (h, params) => {
-                        console.log(params, params.column);
+                    // render: (h, params) => {
+                    //     console.log(params, params.column);
 
-                        var date = new Date(params.row.delayDate);
+                    //     var date = new Date(params.row.delayDate);
                         
-                        return h('div',  [
-                            h('div', {
-                                props: {
-                                   href:"#"
-                                },
-                                style: {
+                    //     return h('div',  [
+                    //         h('div', {
+                    //             props: {
+                    //                href:"#"
+                    //             },
+                    //             style: {
                                     
-                                }
-                            }, this.formatDate(date)),
-                        ]);
-                    }
+                    //             }
+                    //         }, this.formatDate(date)),
+                    //     ]);
+                    // }
                 },{
                     title: '处理状态',
                     width: 100,
@@ -145,7 +145,7 @@ export default {
                                    href:"#"
                                 },
                                 style: {
-                                    
+                                   "color": "#2d8cf0"
                                 }
                             }, "历史记录"),
                         ]);
@@ -200,7 +200,7 @@ export default {
                 delayDate:delayDateStr,
                 status: self.formItem.status,
                 pageSize: self.pagesize,
-                page: no-1
+                page: no
             }).then((res) => {
                 console.log("getWorkListByPage res", res);
                 self.workreserves = res.data.content;
@@ -212,12 +212,12 @@ export default {
             });
         },
         reset:function(){
-            // this.formItem = {
-            //     no: '',
-            //     wocNo:'',
-            //     delayDate: '',
-            //     status: ''
-            // };
+            this.formItem = {
+                no: '',
+                wocNo:'',
+                delayDate: '',
+                status: ''
+            };
             this.$refs['workreserveRef'].resetFields();
         }
     }

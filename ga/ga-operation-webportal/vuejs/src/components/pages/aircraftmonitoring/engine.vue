@@ -128,9 +128,22 @@ export default {
       }]
     };
   },
+  props: ['regNumber'],
+  mounted () {
+    this.getEngineListByRegNumber(this.regNumber);
+  },
   methods: {
-    onclose: function() {
-       this.$router.push({path:'/aircraftmonitoring/tabs',query: {value:'faultreserve' }})
+    getEngineListByRegNumber: function (regNumber) {
+        var self = this;
+        self.$http.httpGet('/eim/api/engine/getEngineListByRegNumber', {
+            regNumber: regNumber
+        }).then((res) => {
+            console.log("getEngineListByRegNumber res", res);
+            self.engines = res.data;
+
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
   }
 };

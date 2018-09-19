@@ -2,21 +2,22 @@
     <div id="faultreserve" style="width: 100%;display: inline-block;background: white;padding: 0 10px;margin-bottom:16px;">
         <Form ref="formItem" :model="formItem" :label-width="110" inline style="width:100%;font-size:0;">
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="编号">
-                <Input v-model="formItem.userName" placeholder="请输入编号" />
+                <Input v-model="formItem.no" placeholder="请输入编号" />
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="保留期限" >
-                <Input v-model="formItem.techpos" placeholder="请输入保留期限"/>
+                <!-- <Input v-model="formItem.reserveDate" placeholder="请输入保留期限"/> -->
+                <DatePicker v-model="formItem.reserveDate" type="date" placement="bottom-end" placeholder="请选择保留期限" />
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="处理状态" >
-                <Select number="true"  placeholder="请选择">
-                    <Option value="0">待完成</Option>
-                    <Option value="1">已完成</Option>
-                    <Option value="2">已退单</Option>
+                <Select v-model="formItem.status" number="true"  placeholder="请选择">
+                    <Option value="待完成">待完成</Option>
+                    <Option value="已完成">已完成</Option>
+                    <Option value="已退单">已退单</Option>
                 </Select>
             </FormItem>
             <FormItem style="width: 100%;text-align:right;">
                 <Button type="primary" @click="reset" style="margin-left:0;">重置</Button>
-                <Button type="primary" @click="init(1)" style="margin-left:0;">查询</Button>
+                <Button type="primary" @click="getFaultList(1)" style="margin-left:0;">查询</Button>
             </FormItem>
         </Form>
         <div>
@@ -33,25 +34,15 @@ export default {
     data () {
         return {
             formItem: {
-                userName: '',
-                baseId:'',
-                techpos: '',
-                homeMobile: ''
+                no: '',
+                reserveDate:'',
+                status: '',
             },
-            faultreserves: [
-                {
-                    id:"0701",
-                    aircraftModel:"",
-                    aircraftRegNo:"",
-                    ataSection:"",
-                    reserveDate:"",
-                    status:"",
-                }
-            ],
+            faultreserves: [],
             columns: [
                 {
                     title: '编号',
-                    key: 'id',
+                    key: 'no',
                     align: 'center',
                     width: 100,
                     render: (h, params) => {
@@ -63,14 +54,14 @@ export default {
                                    href:"#"
                                 },
                                 style: {
-                                    
+                                    "color": "#2d8cf0"
                                 },
                                 on: {
                                     click: () => {
                                         this.toview(params.index);
                                     }
                                 }
-                            }, params.row.id),
+                            }, params.row.no),
                         ]);
                     }
                 },
@@ -106,10 +97,33 @@ export default {
                     title: '操作',
                     // width: 137,
                     key: 'action',
-                    align: 'center'
+                    align: 'center',
+                    render: (h, params) => {
+                        console.log(params, params.column);
+
+                        var date = new Date(params.row.delayDate);
+                        
+                        return h('div',  [
+                            h('a', {
+                                props: {
+                                   href:"#"
+                                },
+                                style: {
+                                   "color": "#2d8cf0"
+                                }
+                            }, "历史记录"),
+                        ]);
+                    }
                 }
             ],
+            pageno:1,
+            pagecount:0,
+            pagesize: 10,
         }
+    },
+    props: ['regNumber'],
+    mounted () {
+        this.getFaultList(1);
     },
     methods: {
         toview(index) {
@@ -118,6 +132,49 @@ export default {
                 query: {Id: this.faultreserves[index].id}
             });
         },
+        pageclick:function (obj) {
+            this.pageno = obj;
+            this.getFaultList(obj);
+        },
+        pagesizeclick: function(size) {
+            this.pagesize = size;
+            this.getFaultList(1);
+        },
+        getFaultList: function(no) {            
+            let self = this;
+            var reserveDate = self.formItem.reserveDate;
+
+            var reserveDateStr = "";
+            if(reserveDate) {
+                reserveDateStr = reserveDate.getFullYear() + "-" + (reserveDate.getMonth() + 1) + "-" + reserveDate.getDate();
+            }
+
+            self.$http.httpGet('/eim/api/mmis/getFaultListByPage', {
+                regNumber: self.regNumber,
+                no: self.formItem.no,
+                reserveDate:reserveDateStr,
+                status: self.formItem.status,
+                pageSize: self.pagesize,
+                page: no
+            }).then((res) => {
+                console.log("getFaultListByPage res", res);
+                self.faultreserves = res.data.content;
+                self.pagecount = res.data.totalElements;
+                self.pageno = no;
+
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        reset:function(){
+            this.formItem = {
+                no: '',
+                wocNo:'',
+                reserveDate: '',
+                status: ''
+            };
+            this.$refs['formItem'].resetFields();
+        }
     }
 }
 </script>

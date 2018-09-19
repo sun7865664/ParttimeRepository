@@ -17,7 +17,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{faultreserveinfo.id}}</span>
+                            <span>{{faultreserveinfo.no}}</span>
                         </div>
                     </td>
                     <td>
@@ -114,6 +114,18 @@
                 <tr class="ivu-table-row">
                     <td>
                         <div class="ivu-table-cell">
+                            <span>已采取措施</span>
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <div class="ivu-table-cell">
+                            <span>{{faultreserveinfo.measuresTaken}}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ivu-table-row">
+                    <td>
+                        <div class="ivu-table-cell">
                             <span>处理状态</span>
                         </div>
                     </td>
@@ -124,12 +136,12 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>推迟期限</span>
+                            <span></span>
                         </div>
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{faultreserveinfo.delayDate}}</span>
+                            <span></span>
                         </div>
                     </td>
                 </tr>
@@ -141,7 +153,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{faultreserveinfo.applicant}}</span>
+                            <span>{{faultreserveinfo.apply}}</span>
                         </div>
                     </td>
                     <td>
@@ -195,7 +207,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{faultreserveinfo.completorTime}}</span>
+                            <span>{{faultreserveinfo.completeTime}}</span>
                         </div>
                     </td>
                 </tr>
@@ -211,7 +223,7 @@ export default {
   data() {
     return {
       faultreserveinfo: {
-        id: "",
+        no: "",
         ataSection: "",
         aircraftModel: "",
         aircraftRegNo: "",
@@ -221,19 +233,35 @@ export default {
         faultReserveCause: "",
         reserveBasis: "",
         status: "",
-        delayDate: "",
-        applicant: "",
+        measuresTaken: "",
+        apply: "",
         applyTime: "",
         approver: "",
         approveTime: "",
         completor: "",
-        completorTime: ""
-      }
+        completeTime: ""
+      },
     };
+  },
+  created () {
+      this.id = this.$route.query.Id;
+      this.getFaultReserveById(this.id);
   },
   methods: {
     onclose: function() {
        this.$router.push({path:'/aircraftmonitoring/tabs',query: {value:'faultreserve' }})
+    },
+    getFaultReserveById: function (id) {
+        var self = this;
+        self.$http.httpGet('/eim/api/mmis/getFaultReserveById', {
+            id: id
+        }).then((res) => {
+            console.log("getWorkListByPage res", res);
+            self.faultreserveinfo = res.data;
+
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
   }
 };
