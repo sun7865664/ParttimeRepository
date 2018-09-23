@@ -6,7 +6,7 @@
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="保留期限" >
                 <!-- <Input v-model="formItem.reserveDate" placeholder="请输入保留期限"/> -->
-                <DatePicker v-model="formItem.reserveDate" type="date" placement="bottom-end" placeholder="请选择保留期限" />
+                <DatePicker v-model="formItem.reserveDate" type="date" placement="bottom-end" placeholder="请选择保留期限"  style="width:100%;"/>
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="处理状态" >
                 <Select v-model="formItem.status" number="true"  placeholder="请选择">
@@ -16,8 +16,8 @@
                 </Select>
             </FormItem>
             <FormItem style="width: 100%;text-align:right;">
-                <Button type="primary" @click="reset" style="margin-left:0;">重置</Button>
                 <Button type="primary" @click="getFaultList(1)" style="margin-left:0;">查询</Button>
+                <Button type="primary" @click="reset" style="margin-left:0;">重置</Button>
             </FormItem>
         </Form>
         <div>
@@ -100,8 +100,6 @@ export default {
                     align: 'center',
                     render: (h, params) => {
                         console.log(params, params.column);
-
-                        var date = new Date(params.row.delayDate);
                         
                         return h('div',  [
                             h('a', {

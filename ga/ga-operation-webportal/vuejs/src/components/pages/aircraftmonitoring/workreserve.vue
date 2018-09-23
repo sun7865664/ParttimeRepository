@@ -9,7 +9,7 @@
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="推迟期限" >
                 <!-- <Input v-model="formItem.delayDate" placeholder="请输入工作单卡编号"/> -->
-                <DatePicker v-model="formItem.delayDate" type="date" placement="bottom-end" placeholder="请选择推迟期限" />
+                <DatePicker v-model="formItem.delayDate" type="date" placement="bottom-end" placeholder="请选择推迟期限"  style="width:100%;"/>
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="处理状态" >
                 <Select v-model="formItem.status" number="true"  placeholder="请选择">

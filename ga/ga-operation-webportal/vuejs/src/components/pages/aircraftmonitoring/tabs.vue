@@ -36,6 +36,9 @@ export default {
     },
     created(){
         this.value = this.$route.query.value;
+        if(this.$route.query.regNumber) {
+            this.regNumber = this.$route.query.regNumber;
+        }
     },
 }
 </script>

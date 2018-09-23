@@ -221,18 +221,28 @@
                 </tr>
             </tbody>
         </table>
-        <div class="bottom5">
-            <span class="tabletitle">排故记录</span>
-            <Table border :columns="columns1" :data="data1"/>
+        <div class="tablerow">
+            <div class="bottom5">
+                <span class="tabletitle">排故记录</span>
+                <Table border :columns="columns1" :data="data1"/>
+            </div>
+            <Page :total="pagecount1" @on-change="pageclick1" @on-page-size-change="pagesizeclick1" :page-size="pagesize1" style="height: 50px;float:right;padding-right:32px;margin-top: 8px;" show-sizer ></Page>
         </div>
-        <div class="bottom5">
-            <span class="tabletitle">换件记录</span>
-            <Table border :columns="columns2" :data="data2"/>
+        <div class="tablerow">
+            <div class="bottom5">
+                <span class="tabletitle">换件记录</span>
+                <Table border :columns="columns2" :data="data2"/>
+            </div>
+            <Page :total="pagecount2" @on-change="pageclick2" @on-page-size-change="pagesizeclick2" :page-size="pagesize2" style="height: 50px;float:right;padding-right:32px;margin-top: 8px;" show-sizer ></Page>
         </div>
-        <div class="bottom5">
-            <span class="tabletitle">AD/SB执行记录</span>
-            <Table border :columns="columns3" :data="data3"/>
+        <div class="tablerow">
+            <div class="bottom5">
+                <span class="tabletitle">AD/SB执行记录</span>
+                <Table border :columns="columns3" :data="data3"/>
+            </div>
+            <Page :total="pagecount3" @on-change="pageclick3" @on-page-size-change="pagesizeclick3" :page-size="pagesize3" style="height: 50px;float:right;padding-right:32px;margin-top: 8px;" show-sizer ></Page>
         </div>
+        
     </div>
 </template>
 
@@ -337,35 +347,113 @@ export default {
         },
       ],
       data3: [],
+      pageno1:1,
+      pagecount1:0,
+      pagesize1: 10,
+      pageno2:1,
+      pagecount2:0,
+      pagesize2: 10,
+      pageno3:1,
+      pagecount3:0,
+      pagesize3: 10,
     };
   },
   created: function() {
-      
-      this.flightrecordinfoinfo = {
-        no: "",
-        companyName: "",
-        aircraftModel: "",
-        aircraftRegNo: "",
-        aircraftFlyTime: "",
-        riseFall: "",
-        loop1: "",
-        captain: "",
-        releaser: "",
-        releaseTime: "",
-        detrusionTime: "",
-        takeOffTime: "",
-        closeTime: "",
-        addFuel: "",
-        fuel: "",
-        surplusFuel: "",
-        workRecord: "",
-
-      };
+      this.id = this.$route.query.Id;
+      this.init();
   },
   methods: {
+    init: function() {
+        this.getFlightRecordById(this.id);
+        this.getFaultRecordByParentId(1);
+        this.getReplaceRecordByParentId(1);
+        this.getADRecordByParentId(1);
+    },
     onclose: function() {
        this.$router.push({path:'/aircraftmonitoring/tabs',query: {value:'flightrecord' }})
+    },
+    getFlightRecordById: function (id) {
+        var self = this;
+        self.$http.httpGet('/eim/api/mmis/getFlightRecordById', {
+            id: id
+        }).then((res) => {
+            self.flightrecordinfoinfo = res.data;
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+    },
+    pageclick1:function (obj) {
+        this.pageno1 = obj;
+        this.getFaultRecordByParentId(obj);
+    },
+    pagesizeclick1: function(size) {
+        this.pagesize1 = size;
+        this.getFaultRecordByParentId(1);
+    },
+    getFaultRecordByParentId: function (no) {
+        var self = this;
+        self.$http.httpGet('/eim/api/mmis/getFaultRecordByParentId', {
+            parentId: this.id,
+            pageSize: self.pagesize1,
+            page: no
+        }).then((res) => {
+            self.data1 = res.data.content;
+            self.pagecount1 = res.data.totalElements;
+            self.pageno1 = no;
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+    },
+    pageclick2:function (obj) {
+        this.pageno2 = obj;
+        this.getReplaceRecordByParentId(obj);
+    },
+    pagesizeclick2: function(size) {
+        this.pagesize2 = size;
+        this.getReplaceRecordByParentId(1);
+    },
+    getReplaceRecordByParentId: function (no) {
+        var self = this;
+        self.$http.httpGet('/eim/api/mmis/getReplaceRecordByParentId', {
+            parentId: this.id,
+            pageSize: self.pagesize2,
+            page: no
+        }).then((res) => {
+            self.data2 = res.data.content;
+            self.pagecount2 = res.data.totalElements;
+            self.pageno2 = no;
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+    },
+    pageclick3:function (obj) {
+        this.pageno3 = obj;
+        this.getADRecordByParentId(obj);
+    },
+    pagesizeclick3: function(size) {
+        this.pagesize3 = size;
+        this.getADRecordByParentId(1);
+    },
+    getADRecordByParentId: function (no) {
+        var self = this;
+        self.$http.httpGet('/eim/api/mmis/getADRecordByParentId', {
+            parentId: this.id,
+            pageSize: self.pagesize3,
+            page: no
+        }).then((res) => {
+            self.data3 = res.data.content;
+            self.pagecount3 = res.data.totalElements;
+            self.pageno3 = no;
+
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
+
+    
   }
 };
 </script>
@@ -387,6 +475,11 @@ export default {
   background: #ddf4ff;
   font-size: 14px;
   color: #2fa5fb;
+}
+.tablerow {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
 }
 </style>
 

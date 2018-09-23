@@ -26,8 +26,8 @@
                 </Select>
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;">
-                <Button type="primary" @click="reset" style="margin-left:0;">重置</Button>
                 <Button type="primary" @click="getRepairList(1)" style="margin-left:0;">查询</Button>
+                <Button type="primary" @click="reset" style="margin-left:0;">重置</Button>
             </FormItem>
         </Form>
         <div>

@@ -2,27 +2,18 @@
     <div id="flightrecord" style="width: 100%;display: inline-block;background: white;padding: 0 10px;margin-bottom:16px;">
         <Form ref="formItem" :model="formItem" :label-width="110" inline style="width:100%;font-size:0;">
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="编号">
-                <Input v-model="formItem.userName" placeholder="请输入编号" />
-            </FormItem>
-            <FormItem class="ws-form-span8" style="margin-right: 0;" label="航空器型号" >
-                <Select v-model="formItem.baseId" number="true"  placeholder="请选择">
-                    <Option v-for="site in supervision" :key="site.baseId" :value="site.baseId">{{ site.baseName }}</Option>
-                </Select>
-            </FormItem>
-            <FormItem class="ws-form-span8" style="margin-right: 0;" label="航空器注册号" >
-                <Select v-model="formItem.baseId" number="true"  placeholder="请选择">
-                    <Option v-for="site in supervision" :key="site.baseId" :value="site.baseId">{{ site.baseName }}</Option>
-                </Select>
+                <Input v-model="formItem.no" placeholder="请输入编号" />
             </FormItem>
             <FormItem class="ws-form-span8" style="margin-right: 0;" label="放行人" >
-                <Input v-model="formItem.techpos" placeholder="请输入放行人"/>
+                <Input v-model="formItem.releaser" placeholder="请输入放行人"/>
             </FormItem>
-            <FormItem class="ws-form-span8" style="margin-right: 0;" label="放行人时间" >
-                <Input v-model="formItem.techpos" placeholder="请输入放行人时间"/>
+            <FormItem class="ws-form-span8" style="margin-right: 0;" label="放行时间" >
+                <!-- <Input v-model="formItem.releaseTime" placeholder="请输入放行人时间"/> -->
+                <DatePicker v-model="formItem.releaseTime" type="date" placement="bottom-end" placeholder="请选择放行时间" style="width:100%;"/>
             </FormItem>
-            <FormItem class="ws-form-span8" style="margin-right: 0;">
+            <FormItem style="width: 100%;text-align:right;">
+                <Button type="primary" @click="getFlightRecordList(1)" style="margin-left:0;">查询</Button>
                 <Button type="primary" @click="reset" style="margin-left:0;">重置</Button>
-                <Button type="primary" @click="init(1)" style="margin-left:0;">查询</Button>
             </FormItem>
         </Form>
         <div>
@@ -39,25 +30,15 @@ export default {
     data () {
         return {
             formItem: {
-                userName: '',
-                baseId:'',
-                techpos: '',
-                homeMobile: ''
+                no: '',
+                releaser:'',
+                releaseTime: '',
             },
-            flightrecords: [
-                {
-                    id:"0701",
-                    aircraftModel:"",
-                    aircraftRegNo:"",
-                    captain:"",
-                    releaser:"",
-                    releaseTime:"",
-                }
-            ],
+            flightrecords: [],
             columns: [
                 {
                     title: '编号',
-                    key: 'id',
+                    key: 'no',
                     align: 'center',
                     width: 100,
                     render: (h, params) => {
@@ -69,14 +50,14 @@ export default {
                                    href:"#"
                                 },
                                 style: {
-                                    
+                                    "color": "#2d8cf0"
                                 },
                                 on: {
                                     click: () => {
                                         this.toview(params.index);
                                     }
                                 }
-                            }, params.row.id),
+                            }, params.row.no),
                         ]);
                     }
                 },
@@ -104,7 +85,7 @@ export default {
                     align: 'center'
                 },{
                     title: '放行时间',
-                    width: 100,
+                    width: 160,
                     key: 'releaseTime',
                     align: 'center'
                 },
@@ -112,10 +93,31 @@ export default {
                     title: '操作',
                     // width: 137,
                     key: 'action',
-                    align: 'center'
+                    align: 'center',
+                    render: (h, params) => {
+                        console.log(params, params.column);
+                        
+                        return h('div',  [
+                            h('a', {
+                                props: {
+                                   href:"#"
+                                },
+                                style: {
+                                   "color": "#2d8cf0"
+                                }
+                            }, "历史记录"),
+                        ]);
+                    }
                 }
             ],
+            pageno:1,
+            pagecount:0,
+            pagesize: 10,
         }
+    },
+    props: ['regNumber'],
+    mounted () {
+        this.getFlightRecordList(1);
     },
     methods: {
         toview(index) {
@@ -124,6 +126,49 @@ export default {
                 query: {Id: this.flightrecords[index].id}
             });
         },
+        pageclick:function (obj) {
+            this.pageno = obj;
+            this.getFlightRecordList(obj);
+        },
+        pagesizeclick: function(size) {
+            this.pagesize = size;
+            this.getFlightRecordList(1);
+        },
+        getFlightRecordList: function(no) {            
+            let self = this;
+            var releaseTime = self.formItem.releaseTime;
+
+            var releaseTimeStr = "";
+            if(releaseTime) {
+                releaseTimeStr = releaseTime.getFullYear() + "-" + (releaseTime.getMonth() + 1) + "-" + releaseTime.getDate();
+            }
+
+            self.$http.httpGet('/eim/api/mmis/getFlightRecordListByPage', {
+                regNumber: self.regNumber,
+                no: self.formItem.no,
+                releaseTime:releaseTimeStr,
+                releaser: self.formItem.releaser,
+                pageSize: self.pagesize,
+                page: no,
+                // companyIds: "111"
+            }).then((res) => {
+                console.log("getFlightRecordListByPage res", res);
+                self.flightrecords = res.data.content;
+                self.pagecount = res.data.totalElements;
+                self.pageno = no;
+
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        reset:function(){
+            this.formItem = {
+                no: '',
+                releaser:'',
+                releaseTime: '',
+            };
+            this.$refs['formItem'].resetFields();
+        }
     }
 }
 </script>
