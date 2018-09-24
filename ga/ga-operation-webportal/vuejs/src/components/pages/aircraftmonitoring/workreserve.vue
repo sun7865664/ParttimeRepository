@@ -18,7 +18,7 @@
                     <Option value="已退单">已退单</Option>
                 </Select>
             </FormItem>
-            <FormItem class="ws-form-span8" style="margin-right: 0;text-align:right;">
+            <FormItem class="ws-form-span8" style="margin-right: 0;">
                 <Button type="primary" @click="getWorkList(1)" style="margin-left:0;">查询</Button>
                 <Button type="primary" @click="reset()" style="margin-left:0;">重置</Button>
             </FormItem>
@@ -94,12 +94,12 @@ export default {
                 },
                 {
                     title: '工作单卡编号',
-                    width: 120,
+                    width: 160,
                     key: 'wocNo',
                     align: 'center'
                 },{
                     title: '工作单卡标题',
-                    width: 240,
+                    // width: 240,
                     key: 'wocTitle',
                     align: 'center'
                 },{
@@ -129,28 +129,28 @@ export default {
                     key: 'status',
                     align: 'center'
                 },
-                {
-                    title: '操作',
-                    // width: 137,
-                    key: 'action',
-                    align: 'center',
-                    render: (h, params) => {
-                        console.log(params, params.column);
+                // {
+                //     title: '操作',
+                //     // width: 137,
+                //     key: 'action',
+                //     align: 'center',
+                //     render: (h, params) => {
+                //         console.log(params, params.column);
 
-                        var date = new Date(params.row.delayDate);
+                //         var date = new Date(params.row.delayDate);
                         
-                        return h('div',  [
-                            h('a', {
-                                props: {
-                                   href:"#"
-                                },
-                                style: {
-                                   "color": "#2d8cf0"
-                                }
-                            }, "历史记录"),
-                        ]);
-                    }
-                }
+                //         return h('div',  [
+                //             h('a', {
+                //                 props: {
+                //                    href:"#"
+                //                 },
+                //                 style: {
+                //                    "color": "#2d8cf0"
+                //                 }
+                //             }, "历史记录"),
+                //         ]);
+                //     }
+                // }
             ],
             pageno:1,
             pagecount:0,
@@ -224,11 +224,14 @@ export default {
 }
 </script>
 <style>
-    .ws-form-span8 {
+    #workreserve .ws-form-span8 {
         width: 33.33333%;
     }
     td {
         max-width: 100%;
+    }
+    #workreserve, #workreserve table td, #workreserve table th {
+        font-size: 14px;
     }
 </style>
 

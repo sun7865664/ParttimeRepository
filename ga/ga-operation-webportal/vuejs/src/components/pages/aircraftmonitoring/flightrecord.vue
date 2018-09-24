@@ -11,7 +11,7 @@
                 <!-- <Input v-model="formItem.releaseTime" placeholder="请输入放行人时间"/> -->
                 <DatePicker v-model="formItem.releaseTime" type="date" placement="bottom-end" placeholder="请选择放行时间" style="width:100%;"/>
             </FormItem>
-            <FormItem style="width: 100%;text-align:right;">
+            <FormItem style="">
                 <Button type="primary" @click="getFlightRecordList(1)" style="margin-left:0;">查询</Button>
                 <Button type="primary" @click="reset" style="margin-left:0;">重置</Button>
             </FormItem>
@@ -89,26 +89,26 @@ export default {
                     key: 'releaseTime',
                     align: 'center'
                 },
-                {
-                    title: '操作',
-                    // width: 137,
-                    key: 'action',
-                    align: 'center',
-                    render: (h, params) => {
-                        console.log(params, params.column);
+                // {
+                //     title: '操作',
+                //     // width: 137,
+                //     key: 'action',
+                //     align: 'center',
+                //     render: (h, params) => {
+                //         console.log(params, params.column);
                         
-                        return h('div',  [
-                            h('a', {
-                                props: {
-                                   href:"#"
-                                },
-                                style: {
-                                   "color": "#2d8cf0"
-                                }
-                            }, "历史记录"),
-                        ]);
-                    }
-                }
+                //         return h('div',  [
+                //             h('a', {
+                //                 props: {
+                //                    href:"#"
+                //                 },
+                //                 style: {
+                //                    "color": "#2d8cf0"
+                //                 }
+                //             }, "历史记录"),
+                //         ]);
+                //     }
+                // }
             ],
             pageno:1,
             pagecount:0,
@@ -173,8 +173,11 @@ export default {
 }
 </script>
 <style>
-    .ws-form-span8 {
-        width: 33.33333%;
+    #flightrecord .ws-form-span8 {
+        width: 25%;
+    }
+    #flightrecord, #flightrecord table td, #flightrecord table th {
+        font-size: 14px;
     }
 </style>
 

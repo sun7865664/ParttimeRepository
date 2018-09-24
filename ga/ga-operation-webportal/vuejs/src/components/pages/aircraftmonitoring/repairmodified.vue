@@ -78,13 +78,13 @@ export default {
                 },
                 {
                     title: '航空器型号',
-                    width: 160,
+                    width: 180,
                     key: 'aircraftModel',
                     align: 'center'
                 },
                 {
                     title: '航空器注册号',
-                    width: 160,
+                    width: 180,
                     key: 'aircraftRegNo',
                     align: 'center'
                 },
@@ -95,37 +95,37 @@ export default {
                     align: 'center'
                 },{
                     title: '项目',
-                    width: 240,
+                    // width: 240,
                     key: 'project',
                     align: 'center'
                 },{
                     title: '处理状态',
-                    width: 160,
+                    width: 180,
                     key: 'status',
                     align: 'center'
                 },
-                {
-                    title: '操作',
-                    // width: 137,
-                    key: 'action',
-                    align: 'center',
-                    render: (h, params) => {
-                        console.log(params, params.column);
+                // {
+                //     title: '操作',
+                //     // width: 137,
+                //     key: 'action',
+                //     align: 'center',
+                //     render: (h, params) => {
+                //         console.log(params, params.column);
 
-                        var date = new Date(params.row.delayDate);
+                //         var date = new Date(params.row.delayDate);
                         
-                        return h('div',  [
-                            h('a', {
-                                props: {
-                                   href:"#"
-                                },
-                                style: {
-                                   "color": "#2d8cf0"
-                                }
-                            }, "历史记录"),
-                        ]);
-                    }
-                }
+                //         return h('div',  [
+                //             h('a', {
+                //                 props: {
+                //                    href:"#"
+                //                 },
+                //                 style: {
+                //                    "color": "#2d8cf0"
+                //                 }
+                //             }, "历史记录"),
+                //         ]);
+                //     }
+                // }
             ],
             pageno:1,
             pagecount:0,
@@ -190,11 +190,11 @@ export default {
 }
 </script>
 <style>
-    .ws-form-span8 {
+   #repairmodified .ws-form-span8 {
         width: 33.33333%;
     }
-    td {
-        max-width: 100%;
+    #repairmodified, #repairmodified table td, #repairmodified table th {
+        font-size: 14px;
     }
 </style>
 

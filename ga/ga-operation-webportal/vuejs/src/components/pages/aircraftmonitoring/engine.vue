@@ -153,10 +153,12 @@ export default {
 <style>
 #engine table td {
     width: 25%;
+    font-size:14px;
 }
 .tabletitle {
     margin: 0 10px 10px 10px;
     display: block;
+    font-size:14px;
 }
 .cancelBtn {
   width: 98px;
@@ -166,6 +168,9 @@ export default {
   background: #ddf4ff;
   font-size: 14px;
   color: #2fa5fb;
+}
+#engine .ivu-table-tbody td:nth-child(2n-1) {
+    background-color: #F8F8F9;
 }
 </style>
 

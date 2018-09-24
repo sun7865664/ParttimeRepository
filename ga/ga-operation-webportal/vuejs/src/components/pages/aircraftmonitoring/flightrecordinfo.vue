@@ -1,5 +1,5 @@
 <template>
-    <div id="flightrecordinfoinfo" style="width: 1280px; height:auto; margin-top: 30px;display: inline-block;background: white;padding: 40px 20px;margin-bottom:16px;">
+    <div id="flightrecordinfo" style="width: 1280px; height:auto; margin-top: 30px;display: inline-block;background: white;padding: 40px 20px;margin-bottom:16px;">
         <Form style="margin-bottom:16px;">
             <div>
                 <div style="width: 100%;; display:inline-block;text-align:right;">
@@ -7,7 +7,7 @@
                 </div>
             </div>
         </Form>
-        <table cellspacing="0" cellpadding="0" border="0" class="ivu-table ivu-table-border" style="border: 1px solid #dcdee2; width: 100%;">
+        <table id="flightrecordtable" cellspacing="0" cellpadding="0" border="0" class="ivu-table ivu-table-border" style="border: 1px solid #dcdee2; width: 100%;">
             <tbody class="ivu-table-tbody">
                 <tr class="ivu-table-row">
                     <td>
@@ -17,7 +17,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.no}}</span>
+                            <span>{{flightrecordinfo.no}}</span>
                         </div>
                     </td>
                     <td>
@@ -27,7 +27,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.companyName}}</span>
+                            <span>{{flightrecordinfo.companyName}}</span>
                         </div>
                     </td>
                 </tr>
@@ -39,7 +39,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.aircraftModel}}</span>
+                            <span>{{flightrecordinfo.aircraftModel}}</span>
                         </div>
                     </td>
                     <td>
@@ -49,7 +49,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.aircraftRegNo}}</span>
+                            <span>{{flightrecordinfo.aircraftRegNo}}</span>
                         </div>
                     </td>
                 </tr>
@@ -61,7 +61,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.aircraftFlyTime}}</span>
+                            <span>{{flightrecordinfo.aircraftFlyTime}}</span>
                         </div>
                     </td>
                     <td>
@@ -71,7 +71,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.riseFall}}</span>
+                            <span>{{flightrecordinfo.riseFall}}</span>
                         </div>
                     </td>
                 </tr>
@@ -83,7 +83,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.loop1}}</span>
+                            <span>{{flightrecordinfo.loop1}}</span>
                         </div>
                     </td>
                     <td>
@@ -93,7 +93,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.captain}}</span>
+                            <span>{{flightrecordinfo.captain}}</span>
                         </div>
                     </td>
                 </tr>
@@ -105,7 +105,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.releaser}}</span>
+                            <span>{{flightrecordinfo.releaser}}</span>
                         </div>
                     </td>
                     <td>
@@ -115,7 +115,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.releaseTime}}</span>
+                            <span>{{flightrecordinfo.releaseTime}}</span>
                         </div>
                     </td>
                 </tr>
@@ -127,7 +127,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.detrusionTime}}</span>
+                            <span>{{flightrecordinfo.detrusionTime}}</span>
                         </div>
                     </td>
                     <td>
@@ -137,7 +137,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.takeOffTime}}</span>
+                            <span>{{flightrecordinfo.takeOffTime}}</span>
                         </div>
                     </td>
                 </tr>
@@ -149,7 +149,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.landTime}}</span>
+                            <span>{{flightrecordinfo.landTime}}</span>
                         </div>
                     </td>
                     <td>
@@ -159,7 +159,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.closeTime}}</span>
+                            <span>{{flightrecordinfo.closeTime}}</span>
                         </div>
                     </td>
                 </tr>
@@ -171,7 +171,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.addFuel}}</span>
+                            <span>{{flightrecordinfo.addFuel}}</span>
                         </div>
                     </td>
                     <td>
@@ -181,7 +181,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.fuel}}</span>
+                            <span>{{flightrecordinfo.fuel}}</span>
                         </div>
                     </td>
                 </tr>
@@ -193,7 +193,7 @@
                     </td>
                     <td>
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.surplusFuel}}</span>
+                            <span>{{flightrecordinfo.surplusFuel}}</span>
                         </div>
                     </td>
                     <td>
@@ -215,44 +215,64 @@
                     </td>
                     <td colspan="3">
                         <div class="ivu-table-cell">
-                            <span>{{flightrecordinfoinfo.workRecord}}</span>
+                            <span>{{flightrecordinfo.workRecord}}</span>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="tablerow">
+        <Tabs class="tablerow" type="card">
+            <TabPane label="排故记录">
+                <div class="bottom5">
+                    <Table border :columns="columns1" :data="data1"/>
+                </div>
+                <Page :total="pagecount1" @on-change="pageclick1" @on-page-size-change="pagesizeclick1" :page-size="pagesize1" style="height: 50px;float:right;padding-right:32px;margin-top: 8px;" show-sizer ></Page>
+            </TabPane>
+            <TabPane label="换件记录">
+                <div class="bottom5">
+                    <Table border :columns="columns2" :data="data2"/>
+                </div>
+                <Page :total="pagecount2" @on-change="pageclick2" @on-page-size-change="pagesizeclick2" :page-size="pagesize2" style="height: 50px;float:right;padding-right:32px;margin-top: 8px;" show-sizer ></Page>
+            </TabPane>
+            <TabPane label="AD/SB执行记录">
+                <div class="bottom5">
+                    <Table border :columns="columns3" :data="data3"/>
+                </div>
+                <Page :total="pagecount3" @on-change="pageclick3" @on-page-size-change="pagesizeclick3" :page-size="pagesize3" style="height: 50px;float:right;padding-right:32px;margin-top: 8px;" show-sizer ></Page>
+            </TabPane>
+        </Tabs>
+        <!-- <div class="tablerow">
             <div class="bottom5">
                 <span class="tabletitle">排故记录</span>
                 <Table border :columns="columns1" :data="data1"/>
             </div>
             <Page :total="pagecount1" @on-change="pageclick1" @on-page-size-change="pagesizeclick1" :page-size="pagesize1" style="height: 50px;float:right;padding-right:32px;margin-top: 8px;" show-sizer ></Page>
-        </div>
-        <div class="tablerow">
+        </div> -->
+        <!-- <div class="tablerow">
             <div class="bottom5">
                 <span class="tabletitle">换件记录</span>
                 <Table border :columns="columns2" :data="data2"/>
             </div>
             <Page :total="pagecount2" @on-change="pageclick2" @on-page-size-change="pagesizeclick2" :page-size="pagesize2" style="height: 50px;float:right;padding-right:32px;margin-top: 8px;" show-sizer ></Page>
-        </div>
-        <div class="tablerow">
+        </div> -->
+        <!-- <div class="tablerow">
             <div class="bottom5">
                 <span class="tabletitle">AD/SB执行记录</span>
                 <Table border :columns="columns3" :data="data3"/>
             </div>
             <Page :total="pagecount3" @on-change="pageclick3" @on-page-size-change="pagesizeclick3" :page-size="pagesize3" style="height: 50px;float:right;padding-right:32px;margin-top: 8px;" show-sizer ></Page>
-        </div>
+        </div> -->
         
     </div>
 </template>
 
 <script>
 export default {
-  name: "flightrecordinfoinfo",
+  name: "flightrecordinfo",
   props: ['id'],
   data() {
     return {
-      flightrecordinfoinfo: {},
+      flightrecordinfo: {},
       columns1: [
         {
             title: '发现故障',
@@ -377,7 +397,7 @@ export default {
         self.$http.httpGet('/eim/api/mmis/getFlightRecordById', {
             id: id
         }).then((res) => {
-            self.flightrecordinfoinfo = res.data;
+            self.flightrecordinfo = res.data;
 
         }).catch(function (error) {
             console.log(error);
@@ -460,13 +480,15 @@ export default {
 
 
 <style>
-#flightrecordinfoinfo table td {
+#flightrecordinfo table td {
     width: 25%;
+    font-size: 14px;
 }
-.tabletitle {
+/* .tabletitle {
     margin: 20px 10px 10px 10px;
     display: block;
-}
+    font-size: 14px;
+} */
 .cancelBtn {
   width: 98px;
   height: 32px;
@@ -477,9 +499,13 @@ export default {
   color: #2fa5fb;
 }
 .tablerow {
-    width: 100%;
+    /* width: 100%;
     height: auto;
-    overflow: hidden;
+    overflow: hidden; */
+    margin-top: 20px;
+}
+#flightrecordtable .ivu-table-tbody td:nth-child(2n-1) {
+    background-color: #F8F8F9;
 }
 </style>
 

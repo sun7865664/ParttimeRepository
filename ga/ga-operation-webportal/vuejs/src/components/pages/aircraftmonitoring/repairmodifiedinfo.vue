@@ -185,6 +185,7 @@ export default {
 <style>
 #repairmodifiedinfo table td {
     width: 25%;
+    font-size: 14px;
 }
 .cancelBtn {
   width: 98px;
@@ -194,6 +195,9 @@ export default {
   background: #ddf4ff;
   font-size: 14px;
   color: #2fa5fb;
+}
+#repairmodifiedinfo .ivu-table-tbody td:nth-child(2n-1) {
+    background-color: #F8F8F9;
 }
 </style>
 
